@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/python
+from os import listdir
+from os.path import isfile, join
 
-mod_file = open('new_handling.cfg', 'r')
-old_file = open('handling.cfg', 'r')
 
-new_file = open('mod_handling.cfg', 'w')
+mod_files = [ f for f in listdir("mod") if isfile(join("mod",f)) ]
+old_files = [ f for f in listdir("old") if isfile(join("old",f)) ]
 
-for mod_line in mod_file:
-	for old_line in old_file:
-		print old_line.split(" ")[0] + "\r\n"
-		if old_line.split(" ")[0] == mod_line.split(" ")[0]:
-			pass
+print mod_files
+
+for mod_file in mod_files:
+	mod_file = open('mod/'+mod_file, 'r')
+
+	for old_file in old_files:
+		new_file = open('new/'+old_file, 'w')
+		old_file = open('mod/'+old_file, 'r')
